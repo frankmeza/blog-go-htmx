@@ -20,14 +20,6 @@ func bootstrapAppState(c echo.Context) error {
 	return renderHome(c)
 }
 
-func convertBytesToHtmlTemplate(content []byte) HtmlTemplateData {
-	parserExtensions := parser.CommonExtensions | parser.Attributes | parser.AutoHeadingIDs
-	parser := parser.NewWithExtensions(parserExtensions)
-
-	html := markdown.ToHTML(content, parser, nil)
-	return HtmlTemplateData{Content: template.HTML(html)}
-}
-
 func createDocuments(path string) ([]MarkdownDocument, error) {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
@@ -49,6 +41,27 @@ func createDocuments(path string) ([]MarkdownDocument, error) {
 	}
 
 	return documents, nil
+}
+
+func getBlogMetadata(markdownAsBytes []byte) ([]byte, PostMetaData, error) {
+	var postMetaData PostMetaData
+	yamlReader := strings.NewReader(string(markdownAsBytes))
+
+	content, err := frontmatter.Parse(yamlReader, &postMetaData)
+	if err != nil {
+		e := utils.ReturnError("getBlogMetadata:27 ", err)
+		return nil, postMetaData, e
+	}
+
+	return content, postMetaData, nil
+}
+
+func getMdPagePath(pageName string) string {
+	return MARKDOWN_PAGES_PATH + pageName + DOT_MD
+}
+
+func getMdPostPath(postName string) string {
+	return MARKDOWN_POSTS_PATH + postName + DOT_MD
 }
 
 func createDocumentFromFilePath(path string) (MarkdownDocument, error) {
@@ -73,43 +86,12 @@ func createDocumentFromFilePath(path string) (MarkdownDocument, error) {
 	return document, nil
 }
 
-func getBlogMetadata(markdownAsBytes []byte) ([]byte, PostMetaData, error) {
-	var postMetaData PostMetaData
-	yamlReader := strings.NewReader(string(markdownAsBytes))
+func convertBytesToHtmlTemplate(content []byte) HtmlTemplateData {
+	parserExtensions := parser.Attributes | parser.AutoHeadingIDs | parser.CommonExtensions
+	parser := parser.NewWithExtensions(parserExtensions)
 
-	content, err := frontmatter.Parse(yamlReader, &postMetaData)
-	if err != nil {
-		e := utils.ReturnError("getBlogMetadata:27 ", err)
-		return nil, postMetaData, e
-	}
-
-	return content, postMetaData, nil
-}
-
-func getMdPagePath(pageName string) string {
-	return MARKDOWN_PAGES_PATH + pageName + DOT_MD
-}
-
-func getMdPostPath(postName string) string {
-	return MARKDOWN_POSTS_PATH + postName + DOT_MD
-}
-
-func renderHome(c echo.Context) error {
-	var publishedPosts []MarkdownDocument
-	for _, post := range appState.Posts {
-		if !post.IsDraft {
-			publishedPosts = append(publishedPosts, post)
-		}
-	}
-
-	blogData := BlogData
-	blogData.Posts = publishedPosts
-
-	return t.templates.ExecuteTemplate(
-		c.Response().Writer,
-		TEMPLATE_HOME,
-		blogData,
-	)
+	html := markdown.ToHTML(content, parser, nil)
+	return HtmlTemplateData{Content: template.HTML(html)}
 }
 
 func renderMarkdownAsHtml(c echo.Context) error {
@@ -143,6 +125,24 @@ func renderMarkdownAsHtml(c echo.Context) error {
 	return t.templates.ExecuteTemplate(
 		c.Response().Writer,
 		TEMPLATE_MARKDOWN_PAGE,
+		blogData,
+	)
+}
+
+func renderHome(c echo.Context) error {
+	var publishedPosts []MarkdownDocument
+	for _, post := range appState.Posts {
+		if !post.IsDraft {
+			publishedPosts = append(publishedPosts, post)
+		}
+	}
+
+	blogData := BlogData
+	blogData.Posts = publishedPosts
+
+	return t.templates.ExecuteTemplate(
+		c.Response().Writer,
+		TEMPLATE_HOME,
 		blogData,
 	)
 }
