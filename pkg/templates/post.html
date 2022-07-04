@@ -1,0 +1,50 @@
+{{ define "markdownPage" }}
+<!DOCTYPE html>
+
+{{ template "core.headTag" }}
+<html>
+    <body class="x-container">
+        {{ template "navbar" . }}
+
+        <section class="section">
+            <div class="container is-max-widescreen">
+                <div class="x-post-content content">
+                    {{ .CurrentPost.Content }}
+                </div>
+            </div>
+        </section>
+
+        {{ template "footer" }}
+        {{ template "core.js" }}
+    </body>
+</html>
+{{ end }}
+
+{{ define "post.postSummaries" }}
+<section class="x-posts section">
+    <ul class="x-post-summaries">
+        {{ range .Posts }}
+
+        <li
+            class="x-post-summary box"
+            hx-get={{ printf "/%s/%s" "posts" .Key }}
+            hx-push-url="true"
+            hx-target=".x-container"
+        >
+            {{ range .Tags }}
+                <div
+                    class="x-post-summary-tag button mr-1 mb-1"
+                    hx-get={{ printf "/%s/%s/%s" "posts" "tags" . }}
+                >
+                    <p>{{ . }}</p>
+                </div>
+            {{ end }}
+
+            <h2 class="x-post-title mt-2 mb-4">{{ .Title }}</h2>
+            <p class="is-size-5 mb-4">{{ .Summary }}</p>
+            <p class="x-created-at">{{ .CreatedAt }}</p>
+        </li>
+        {{ end }}
+    </ul>
+</section>
+{{ end }}

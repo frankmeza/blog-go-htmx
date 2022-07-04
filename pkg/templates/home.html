@@ -1,0 +1,22 @@
+{{ define "home" }}
+<!DOCTYPE html>
+
+{{ template "core.headTag" }}
+<html>
+    <body class="x-container">
+        {{ template "navbar" . }}
+
+        <section class="section">
+            <div class="container">
+                <div class="x-main-content">
+                    {{ template "summary" . }}
+                    {{ template "post.postSummaries" . }}
+                </div>
+            </div>
+        </section>
+
+        {{ template "footer" . }}
+        {{ template "core.js" }}
+    </body>
+</html>
+{{ end }}

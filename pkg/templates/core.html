@@ -1,0 +1,47 @@
+{{ define "core.headTag" }}
+<head>
+    <title>your blog name</title>
+
+    <!-- favicon -->
+    <link
+        rel="shortcut icon"
+        type="image/png"
+        href="../assets/favicon/favicon-32x32.png"
+    />
+
+    <!-- bulma -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+
+    <!-- local stylesheet -->
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,800;1,300&family=Source+Code+Pro:wght@400;600;800&display=swap"
+        rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../assets/css/arduino-light.css" />
+</head>
+{{ end }}
+
+{{ define "core.js" }}
+
+<!-- htmx -->
+<script src="../assets/js/htmx.min.js"></script>
+
+<!-- alpine js -->
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- code syntax highlight -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/go.min.js"></script>
+<script>
+    hljs.highlightAll();
+</script>
+{{ end }}

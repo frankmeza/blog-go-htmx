@@ -1,0 +1,64 @@
+version: "3"
+
+tasks:
+  # build
+  # dev
+  # dev1
+  # deploy
+  # install
+  # prepare
+  # reload
+  # stop
+  # start
+  # status
+  # run
+
+  build:
+    cmds:
+      - go build cmd/main/main.go
+
+  dev:
+    cmds:
+      - go run cmd/main/main.go -dev 1
+
+  dev1:
+    cmds:
+      - nodemon --exec go run cmd/main/main.go -dev 1 --signal SIGTERM
+
+  deploy:
+    cmds:
+      - task prepare
+      - task reload
+      - task status
+
+  install:
+    cmds:
+      - go install ./...
+
+  prepare:
+    cmds:
+      - rm main
+      - task install
+      - task build
+
+  reload:
+    cmds:
+      - task stop
+      - task start
+
+  stop:
+    cmds:
+      - sudo service {{your-service-name}} stop
+
+  start:
+    cmds:
+      - sudo service {{your-service-name}} start
+
+  status:
+    cmds:
+      - sudo service {{your-service-name}} status
+
+  run-binary:
+    cmds:
+      - task prepare
+      - ./main

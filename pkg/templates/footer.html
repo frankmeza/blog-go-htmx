@@ -1,0 +1,20 @@
+{{ define "footer" }}
+<footer class="section">
+    <div class="x-footer ml-6 mr-6">
+        <ul class="x-footer-links mb-4">
+            {{ range .FooterLinks }}
+            <li class="mr-4">
+                <a class="x-navbar-links is-size-5" href={{ printf "%s" .Url }}>
+                    {{ .Text }}
+                </a>
+            </li>
+            {{ end }}
+        </ul>
+
+        <p>
+            the vibe here is a recreation of <a href="https://gatsbyglass.netlify.app/">Gatsby Glass</a> by
+            <a href="https://twitter.com/yinkakun">Yinka Adedire</a>
+        </p>
+    </div>
+</footer>
+{{ end }}

@@ -1,0 +1,21 @@
+{{ define "page" }}
+<!DOCTYPE html>
+
+{{ template "core.headTag" }}
+<html>
+    <body class="x-container">
+        {{ template "navbar" . }}
+
+        <section class="section">
+            <div class="container is-max-widescreen">
+                <div class="x-main-content" hx-get="/assets/js/get-page-classes.js">
+                    {{ .CurrentPost.Content }}
+                </div>
+            </div>
+        </section>
+
+        {{ template "footer" . }}
+        {{ template "core.js" }}
+    </body>
+</html>
+{{ end }}

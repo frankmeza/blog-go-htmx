@@ -1,0 +1,29 @@
+{{ define "navbar" }}
+<nav class="navbar mr-6" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a
+            class="navbar-item x-navbar-links is-size-5 ml-6"
+            hx-get="/"
+            hx-push-url="true"
+            hx-target=".x-container"
+        >
+            HOME
+        </a>
+    </div>
+
+    <div class="navbar-end">
+        {{ range .HeaderLinks }}
+        <div class="navbar-item">
+            <a
+                hx-get={{ printf "%s" .Url }}
+                hx-push-url="true"
+                hx-target=".x-container"
+                class="x-navbar-links is-size-5"
+            >
+                {{ .Text }}
+            </a>
+        </div>
+        {{ end }}
+    </div>
+</nav>
+{{ end }}

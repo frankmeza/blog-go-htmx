@@ -1,0 +1,188 @@
+:root {
+    /* BORDERS */
+    --border-thin-white: var(--white) solid 2px;
+
+    /* COLORS */
+    --thunder: #37292c;
+    --link-water: #d9e4f5;
+
+    /* COLORS WITH OPACITY */
+    --vanilla-ice: #f3e3e6 75%;
+    --whisper: rgba(255, 255, 255, 0.3);
+    --white: rgba(255, 255, 255, 0.5);
+
+    /* COLOR GRADIENTS */
+    --pink-cloud: linear-gradient(
+        315deg,
+        rgb(217, 228, 245) 0%,
+        rgb(245, 227, 230) 74%
+    );
+
+    /* FONT NAMES */
+    --poppins-font: Poppins;
+    --source-code-pro-font: "Source Code Pro";
+
+    /* FONT WEIGHTS */
+    --weight-400: 400;
+    --weight-600: 600;
+    --weight-800: 800;
+
+    /* GRID */
+    --post-summaries-grid: repeat(auto-fit, minmax(35ch, 1fr)) !important;
+
+    /* LINE HEIGHT */
+    --one-point-two: 1.2;
+
+    /* SIZES REM */
+    --size-300: 0.75rem;
+    --size-400: 1rem;
+    --size-500: 1.33rem;
+    --size-600: 1.77rem;
+    --size-700: 2.36rem;
+    --size-800: 3.15rem;
+    --size-900: 4.2rem;
+}
+
+/* BEGIN -- these 2 are together */
+/* THIS IS HOW TO GET A STICKY FOOTER */
+html,
+body {
+    height: 100%;
+}
+
+body > footer {
+    position: sticky;
+    top: 100vh;
+}
+
+/* END -- these 2 are together */
+
+body {
+    background-image: var(--pink-cloud);
+    color: var(--thunder);
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: var(--vanilla-ice);
+    color: var(--thunder);
+}
+
+a.x-navbar-links {
+    font-family: var(--poppins-font);
+    color: var(--thunder);
+}
+
+/* BLOG SUMMARY */
+h1.x-summary-headline {
+    font-family: var(--poppins-font) !important;
+    font-weight: var(--weight-800) !important;
+    font-size: var(--size-800) !important;
+}
+
+/* POST SUMMARIES */
+li.x-post-summary {
+    background-color: var(--whisper);
+    border: var(--border-thin-white);
+}
+
+.x-post-summaries {
+    display: grid !important;
+    grid-gap: var(--size-600) !important;
+    grid-template-columns: var(--post-summaries-grid);
+}
+
+.x-post-summary-tag {
+    border: var(--border-thin-white);
+    font-family: var(--poppins-font) !important;
+    font-size: var(--size-300) !important;
+    text-transform: uppercase;
+}
+
+.x-created-at {
+    font-family: var(--poppins-font) !important;
+    font-size: var(--size-300) !important;
+}
+
+/* POST */
+.x-post-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--size-800);
+}
+
+.x-post-content > h1,
+.x-post-content > h2,
+.x-post-content > p {
+    font-family: var(--poppins-font) !important;
+}
+
+.x-post-content > h1 {
+    font-weight: var(--weight-800) !important;
+    font-size: var(--size-800) !important;
+    margin-bottom: var(--size-400);
+}
+
+.x-post-content > h2 {
+    font-weight: var(--weight-600) !important;
+    font-size: var(--size-600) !important;
+    margin-bottom: var(--size-400);
+}
+
+.x-post-content > ul {
+    list-style-type: disc;
+}
+
+.x-post-content > li {
+    display: list-item;
+    font-weight: var(--weight-400) !important;
+    font-size: var(--size-400) !important;
+}
+
+.x-post-content > pre {
+    background-color: var(--vanilla-ice) !important;
+    border: var(--border-thin-white);
+    border-radius: 0.5rem;
+    margin-top: var(--size-400);
+    margin-bottom: var(--size-400);
+}
+
+.x-post-content > pre > code {
+    background-color: var(--vanilla-ice) !important;
+    font-family: var(--source-code-pro-font);
+    font-weight: var(--weight-400) !important;
+    font-size: var(--size-400) !important;
+}
+
+h2.x-post-title {
+    font-family: var(--poppins-font) !important;
+    font-size: var(--size-600) !important;
+    font-weight: var(--weight-800) !important;
+    line-height: var(--one-point-two);
+}
+
+/* FOOTER */
+.x-footer,
+.x-footer-links {
+    display: flex;
+    flex-direction: row;
+}
+
+.x-footer {
+    justify-content: space-between;
+}
+
+/* BESPOKE FIXES */
+    /* NAVBAR, I BELIEVE */
+.box:not(:last-child) {
+    margin-bottom: 0;
+}
+
+    /* SCROLLBAR */
+body::-webkit-scrollbar {
+    width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+    background-image: var(--pink-cloud);
+}
